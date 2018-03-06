@@ -7,7 +7,7 @@ expectedBoTRates = {'USD': 29.325, 'AUD': 22.83, 'CHF': 31.29, 'SEK': 3.6, 'THB'
 
 def test_parse():
     bot = BankOfTaiwan()
-    f = open('./sample.exchange.rates.2018.03.02.16.01.txt', 'r')
+    f = open('tests/sample.exchange.rates.2018.03.02.16.01.txt', 'r')
     bot.parse(f)
     rates = bot.exchangeRates
 
