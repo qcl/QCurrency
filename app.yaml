@@ -5,3 +5,8 @@ threadsafe: true
 handlers:
 - url: /.*
   script: main.app
+
+skip_files:
+- tests/
+- env/
+- .git/
