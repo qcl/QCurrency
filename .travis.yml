@@ -1,13 +1,19 @@
 language: python
 python:
 - '2.7'
-before_install:
-- openssl aes-256-cbc -K $encrypted_444c68b6206a_key -iv $encrypted_444c68b6206a_iv
-  -in gae.deploy.json.enc -out gae.deploy.json -d
-script:
-- pytest tests/
-deploy:
-  provider: gae
-  keyfile: gae.deploy.json
-  project: qcurrency-exchange-rates
-  on: master
+stages:
+  - test
+  - name: deploy
+    if: branch = master
+jobs:
+  include:
+    - stage: test
+      script:
+      - pytest tests/ 
+    - stage: deploy
+      script:
+      - openssl aes-256-cbc -K $encrypted_444c68b6206a_key -iv $encrypted_444c68b6206a_iv -in gae.deploy.json.enc -out gae.deploy.json -d
+      deploy:
+        provider: gae
+        keyfile: gae.deploy.json
+        project: qcurrency-exchange-rates
