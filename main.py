@@ -1,6 +1,7 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import webapp2
+from webapp2_extras import routes
 import json
 
 class MainPage(webapp2.RequestHandler):
@@ -10,11 +11,12 @@ class MainPage(webapp2.RequestHandler):
 
 class LatestExchangeRates(webapp2.RequestHandler):
     def get(self):
-        rates = {}
         self.response.headers['Content-Type'] = 'application/json'
         self.response.write(json.dumps(rates))
 
 app = webapp2.WSGIApplication([
+        routes.PathPrefixRoute('/api', [
+            webapp2.Route('/latest', LatestExchangeRates),
+        ]), 
         ('/', MainPage),
-        ('/api/latest', LatestExchangeRates),
     ], debug=True)
