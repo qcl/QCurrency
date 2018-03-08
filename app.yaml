@@ -6,6 +6,9 @@ handlers:
 - url: /.*
   script: main.app
 
+- url: /test/.*
+  script: api.app
+
 skip_files:
 - tests/
 - env/
