@@ -4,10 +4,7 @@ threadsafe: true
 
 handlers:
 - url: /.*
-  script: main.app
-
-- url: /test/.*
-  script: api.app
+  script: app.main.app
 
 skip_files:
 - tests/
