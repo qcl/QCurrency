@@ -1,0 +1,4 @@
+cron:
+- description: "fetch latest exchange rates from Bank of Taiwan"
+  url: /fetch/
+  schedule: every 5 mins
