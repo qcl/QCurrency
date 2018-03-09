@@ -4,11 +4,11 @@ import webapp2
 import json
 
 from google.appengine.api import memcache
+
 from updateExchangeRates import fetchFromBoT
 
 class Fetch(webapp2.RequestHandler):
     def get(self):
-        #TODO secure corn job
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write('Trigger fetch latest exchange rates.')
         #print self.request.headers

@@ -3,8 +3,15 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /.*
+- url: /
   script: app.main.app
+
+- url: /api/.*
+  script: app.main.app
+
+- url: /fetch/
+  script: app.main.app
+  login: admin
 
 skip_files:
 - tests/
