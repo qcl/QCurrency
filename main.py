@@ -4,20 +4,16 @@ import webapp2
 from webapp2_extras import routes
 import json
 
+from api import routes as apiRoutes
+from fetch import routes as fetchRoutes
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write('QCurrency is working.')
 
-class LatestExchangeRates(webapp2.RequestHandler):
-    def get(self):
-        rates = {}
-        self.response.headers['Content-Type'] = 'application/json'
-        self.response.write(json.dumps(rates))
-
 app = webapp2.WSGIApplication([
-        routes.PathPrefixRoute('/api', [
-            webapp2.Route('/latest', LatestExchangeRates),
-        ]), 
+        routes.PathPrefixRoute('/api', apiRoutes),
+        routes.PathPrefixRoute('/fetch', fetchRoutes),
         ('/', MainPage),
     ], debug=True)

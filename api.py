@@ -3,18 +3,31 @@
 import webapp2
 import json
 
-class APIMainPage(webapp2.RequestHandler):
+from datetime import datetime
+from google.appengine.api import memcache
+
+class APIEndpoint(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write('QCurrency is working.')
+        self.response.write('QCurrency API Endpoint')
 
-class APILatestExchangeRates(webapp2.RequestHandler):
+class LatestExchangeRates(webapp2.RequestHandler):
     def get(self):
-        rates = {}
+        response = {
+                    'source': 'Bank of Taiwan',
+                    'update': datetime.fromtimestamp(0).isoformat(),
+                    'rates': {}
+                }
         self.response.headers['Content-Type'] = 'application/json'
-        self.response.write(json.dumps(rates))
 
-app = webapp2.WSGIApplication([
-        ('/',APIMainPage),
-        ('/api', APILatestExchangeRates),
-    ], debug=True)
+        bot = memcache.get('latest-bot')
+        if bot is not None:
+            response['update'] = bot.updateTime.isoformat()
+            response['rates'] = bot.exchangeRates
+
+        self.response.write(json.dumps(response))
+
+routes = [
+    webapp2.Route('/latest', LatestExchangeRates),
+    webapp2.Route('/', APIEndpoint),
+]
