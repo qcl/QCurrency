@@ -16,7 +16,7 @@ Then you will get the exchange rates response JSON object. See [APIs](#apis) for
 
 ## APIs
 
-API endpoint: `https://qcurrency-excahnge-rates.appspot.com/api`. You can also use this repository to build your own API server.
+API endpoint: `https://qcurrency-exchange-rates.appspot.com/api`. You can also use this repository to build your own API server.
 
 ### Get latest exchange rates
 
