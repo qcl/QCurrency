@@ -25,8 +25,20 @@ class LatestExchangeRates(webapp2.RequestHandler):
             response['update'] = bot.updateTime.isoformat()
             response['rates'] = bot.exchangeRates
 
+        googleRates = memcache.get('latest-google')
+        print googleRates
+        if googleRates is not None and bot is not None and googleRates['update'] > bot.updateTime:
+            response['source'] = googleRates['source']
+            response['update'] = googleRates['update'].isoformat()
+            response['rates'] = googleRates['rates']
+        #print googleRates['update']
+        
+        #print bot.updateTime
+        #print bot.updateTime > googleRates['update']
+
         self.response.write(json.dumps(response))
 
+# TODO: different source api
 routes = [
     webapp2.Route('/latest', LatestExchangeRates),
     webapp2.Route('/', APIEndpoint),

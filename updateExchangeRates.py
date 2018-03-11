@@ -3,7 +3,7 @@
 from exchangeRates import BankOfTaiwan
 from datetime import datetime, tzinfo, timedelta
 
-import urllib2
+import urllib, urllib2
 
 latestBoTExchangeRatesURL = 'http://rate.bot.com.tw/xrt/fltxt/0/day'
 
@@ -53,10 +53,53 @@ def fetchFromBoT():
     
     return bot
 
+def fetchFromGoogle():
+    print 'Fetch from Google Currency Converter'
+    
+    #'https://finance.google.com/finance/converter?a=1&from=TWD&to=EUR'
+    googleConverterURL = 'https://finance.google.com/finance/converter'
+
+    currencies = ['USD', 'AUD', 'CHF', 'ZAR', 'CNY', 'JPY', 'GBP', 'NZD', 'SGD', 'CAD', 'SEK', 'THB', 'HKD', 'EUR']
+    rates = {}
+
+    try:
+        for currency in currencies:
+            query = {
+                'a': 1,
+                'to': 'TWD',
+                'from': currency
+            }
+
+            requestURL = googleConverterURL + '?' + urllib.urlencode(query)
+            request = urllib2.Request(requestURL)
+            response = urllib2.urlopen(request)
+
+            for line in response:
+                if 'currency_converter_result' in line:
+                    if '<span class=bld>' in line:
+                        resultStr = line.split('<span class=bld>')[1]
+                        resultStr = resultStr.split()[0]
+                        rates[currency] = float(resultStr)
+                    break
+
+        if len(rates.keys()) == len(currencies):
+            result = {
+                'rates': rates,
+                'update': datetime.now(tz=TaipeiTime()),
+                'source': 'Google Currency Converter'
+            }
+            print result
+            return result
+    except:
+        print 'Fetch fail.'
+
+    return None
+
 
 def update():
     print 'Start update'
     fetchFromBoT()
+    fetchFromGoogle()
     print 'End update'
 
 

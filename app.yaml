@@ -9,7 +9,7 @@ handlers:
 - url: /api/.*
   script: app.main.app
 
-- url: /fetch/
+- url: /fetch/.*
   script: app.main.app
   login: admin
 
