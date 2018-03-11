@@ -24,7 +24,7 @@ def fetchToUpdateGoogle():
         print 'Fetch to update fail'
 
 def fetchToUpdateAll():
-    fetchFromGoogle()
+    fetchToUpdateGoogle()
     fetchToUpdateBoT()
 
 class Fetch(webapp2.RequestHandler):
