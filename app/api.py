@@ -19,6 +19,7 @@ class LatestExchangeRates(webapp2.RequestHandler):
                     'rates': {}
                 }
         self.response.headers['Content-Type'] = 'application/json'
+        self.response.headers['Access-Control-Allow-Origin'] = '*'
 
         bot = memcache.get('latest-bot')
         if bot is not None:
