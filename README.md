@@ -3,7 +3,7 @@ A simple NTD foreign exchange rates API
 
 [![Build Status](https://travis-ci.org/qcl/QCurrency.svg?branch=master)](https://travis-ci.org/qcl/QCurrency)
 
-QCurrency is a API for getting almost realtime NTD (New Taiwan Dollar, NT$, ISO-4217 currency cocde TWD) foreign exchange rates that [published](http://rate.bot.com.tw/) by [Bank of Taiwan](http://www.bot.com.tw/)
+QCurrency is a API for getting almost realtime NTD (New Taiwan Dollar, NT\$, ISO-4217 currency code **TWD**) foreign exchange rates that [published](http://rate.bot.com.tw/) by [Bank of Taiwan](http://www.bot.com.tw/). And also fetched from [Google Currency Converter](https://finance.google.com/finance/converter).
 
 ## Usage
 
@@ -54,6 +54,20 @@ GET /latest
 	}
 }
 ```
+
+### Available exchange rates sources
+```HTTP
+GET /sources
+```
+
+To be implemented.
+
+### Get latest exchange rates by source
+```HTTP
+GET /SOURCE_NAME/latest
+```
+
+To be implemented.
 
 ## How does it work?
 
@@ -106,3 +120,12 @@ $ gcloud app depoly --project=APP_ENGINE_PROJECT_NAME
 ```
 $ gcloud app depoly cron.yaml --project=APP_ENGINE_PROJECT_NAME 
 ```
+
+## License
+
+See `LICENSE.md`.
+
+## Donate
+
+* [PayPal](https://www.paypal.me/qclean/5eur)
+* ETH `0x459E11281660e6D5192C746775c5d0EBC6287696`
