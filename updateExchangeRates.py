@@ -54,10 +54,11 @@ def fetchFromBoT():
     return bot
 
 def fetchFromGoogle():
-    print 'Fetch from Google Currency Converter'
+    print 'Fetch from Google Search'
     
-    #'https://finance.google.com/finance/converter?a=1&from=TWD&to=EUR'
-    googleConverterURL = 'https://finance.google.com/finance/converter'
+    #'http://www.google.com/search?q=EUR+TWD'
+    googleConverterURL = 'http://www.google.com/search'
+    headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36'}
 
     currencies = ['USD', 'AUD', 'CHF', 'ZAR', 'CNY', 'JPY', 'GBP', 'NZD', 'SGD', 'CAD', 'SEK', 'THB', 'HKD', 'EUR']
     rates = {}
@@ -65,20 +66,20 @@ def fetchFromGoogle():
     try:
         for currency in currencies:
             query = {
-                'a': 1,
-                'to': 'TWD',
-                'from': currency
+                'hl': 'zh-TW',
+                'q': '%s TWD' % (currency)
             }
 
             requestURL = googleConverterURL + '?' + urllib.urlencode(query)
-            request = urllib2.Request(requestURL)
+            request = urllib2.Request(requestURL, None, headers)
             response = urllib2.urlopen(request)
 
             for line in response:
-                if 'currency_converter_result' in line:
-                    if '<span class=bld>' in line:
-                        resultStr = line.split('<span class=bld>')[1]
-                        resultStr = resultStr.split()[0]
+                if ' 台幣</div>' in line:
+                    if ' =</div>' in line:
+                        resultStr = line.split(' =</div>')[1]
+                        resultStr = resultStr.split(' 台幣</div>')[0]
+                        resultStr = resultStr.split('>')[1]
                         rates[currency] = float(resultStr)
                     break
 
@@ -86,7 +87,7 @@ def fetchFromGoogle():
             result = {
                 'rates': rates,
                 'update': datetime.now(tz=TaipeiTime()),
-                'source': 'Google Currency Converter'
+                'source': 'Google Search'
             }
             print result
             return result

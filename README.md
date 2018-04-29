@@ -1,13 +1,15 @@
-# QCurrency 
+# QCurrency
+
 A simple NTD foreign exchange rates API
 
 [![Build Status](https://travis-ci.org/qcl/QCurrency.svg?branch=master)](https://travis-ci.org/qcl/QCurrency)
 
-QCurrency is a API for getting almost realtime NTD (New Taiwan Dollar, NT\$, ISO-4217 currency code **TWD**) foreign exchange rates that [published](http://rate.bot.com.tw/) by [Bank of Taiwan](http://www.bot.com.tw/). And also fetched from [Google Currency Converter](https://finance.google.com/finance/converter).
+QCurrency is a API for getting almost realtime NTD (New Taiwan Dollar, NT\$, ISO-4217 currency code **TWD**) foreign exchange rates that [published](http://rate.bot.com.tw/) by [Bank of Taiwan](http://www.bot.com.tw/). And also fetched from [Google Search](https://www.google.com/) result.
 
 ## Usage
 
 ### Directly use HTTP GET
+
 ```HTTP
 GET API_ENDPOINT/latest
 ```
@@ -34,28 +36,29 @@ GET /latest
 
 ```json
 {
-	"update": "2018-03-09T16:15:00+08:00",
-	"source": "Bank of Taiwan",
-	"rates": {
-		"THB": 0.9586,
-		"ZAR": 2.5,
-		"GBP": 40.73,
-		"NZD": 21.42,
-		"CHF": 30.92,
-		"CNY": 4.647,
-		"JPY": 0.2765,
-		"USD": 29.34,
-		"SGD": 22.32,
-		"HKD": 3.766,
-		"SEK": 3.6,
-		"CAD": 22.86,
-		"AUD": 22.97,
-		"EUR": 36.27
-	}
+    "update": "2018-03-09T16:15:00+08:00",
+    "source": "Bank of Taiwan",
+    "rates": {
+        "THB": 0.9586,
+        "ZAR": 2.5,
+        "GBP": 40.73,
+        "NZD": 21.42,
+        "CHF": 30.92,
+        "CNY": 4.647,
+        "JPY": 0.2765,
+        "USD": 29.34,
+        "SGD": 22.32,
+        "HKD": 3.766,
+        "SEK": 3.6,
+        "CAD": 22.86,
+        "AUD": 22.97,
+        "EUR": 36.27
+    }
 }
 ```
 
 ### Available exchange rates sources
+
 ```HTTP
 GET /sources
 ```
@@ -63,6 +66,7 @@ GET /sources
 To be implemented.
 
 ### Get latest exchange rates by source
+
 ```HTTP
 GET /SOURCE_NAME/latest
 ```
@@ -97,7 +101,7 @@ Dou to Google App Engine Python Standard Enviroment use `python2.7` as its pytho
 
 You can also check `Makefile` for some useful command to help you developing.
 
-### Run local app engine 
+### Run local app engine
 
 ```
 $ dev_appserver.py app.yaml
@@ -106,6 +110,7 @@ $ dev_appserver.py app.yaml
 Then it will start a local app engine server for developing and testing.
 
 ### Run test cases
+
 ```
 $ python2.7 -m pytest tests/
 ```
@@ -117,8 +122,9 @@ $ gcloud app depoly --project=APP_ENGINE_PROJECT_NAME
 ```
 
 ### Deploy cron job
+
 ```
-$ gcloud app depoly cron.yaml --project=APP_ENGINE_PROJECT_NAME 
+$ gcloud app depoly cron.yaml --project=APP_ENGINE_PROJECT_NAME
 ```
 
 ## License
@@ -127,5 +133,5 @@ See `LICENSE.md`.
 
 ## Donate
 
-* [PayPal](https://www.paypal.me/qclean/5eur)
-* ETH `0x459E11281660e6D5192C746775c5d0EBC6287696`
+- [PayPal](https://www.paypal.me/qclean/5eur)
+- ETH `0x459E11281660e6D5192C746775c5d0EBC6287696`
